@@ -10,10 +10,15 @@ class Png2Imagewriter
       print 27.chr
       print 99.chr
       sleep(0.1)
+
       print 27.chr
       print 'N'
       print 27.chr
       print "T16"
+      sleep(0.1)
+
+      print 27.chr
+      print 62.chr
       sleep(0.1)
 
       leftovers = png.height.modulo(8)
@@ -45,6 +50,7 @@ class Png2Imagewriter
 
          strip.each { |c| print c.chr }
 	 print "\n"
+         sleep(1.5)
       end
    end
 end

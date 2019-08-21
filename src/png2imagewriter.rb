@@ -7,6 +7,15 @@ class Png2Imagewriter
       Kernel.abort "Usage: png2imagewriter.rb [FILENAME]" if !ARGV[0]
       png = ChunkyPNG::Image.from_file ARGV[0]
 
+      print 27.chr
+      print 99.chr
+      sleep(0.1)
+      print 27.chr
+      print 'N'
+      print 27.chr
+      print "T16"
+      sleep(0.1)
+
       leftovers = png.height.modulo(8)
       strip_count = (png.height - png.height.modulo(8)) / 8
 
@@ -24,17 +33,18 @@ class Png2Imagewriter
 
       for strip_index in 0..strip_count-1
          for i in 0..png.width-1
-            strip[6+i] = (((png[i, 7 * strip_index] == 255) ? 1 : 0) << 7) ||
-                         (((png[i, 6 * strip_index] == 255) ? 1 : 0) << 6) ||
-                         (((png[i, 5 * strip_index] == 255) ? 1 : 0) << 5) ||
-                         (((png[i, 4 * strip_index] == 255) ? 1 : 0) << 4) ||
-                         (((png[i, 3 * strip_index] == 255) ? 1 : 0) << 3) ||
-                         (((png[i, 2 * strip_index] == 255) ? 1 : 0) << 2) ||
-                         (((png[i, 1 * strip_index] == 255) ? 1 : 0) << 1) ||
-                         (((png[i, 0 * strip_index] == 255) ? 1 : 0) << 0)
+            strip[6+i] = ((png[i, 8 * strip_index + 7] == 255) ? 1 << 7 : 0) |
+                         ((png[i, 8 * strip_index + 6] == 255) ? 1 << 6 : 0) |
+                         ((png[i, 8 * strip_index + 5] == 255) ? 1 << 5 : 0) |
+                         ((png[i, 8 * strip_index + 4] == 255) ? 1 << 4 : 0) |
+                         ((png[i, 8 * strip_index + 3] == 255) ? 1 << 3 : 0) |
+                         ((png[i, 8 * strip_index + 2] == 255) ? 1 << 2 : 0) |
+                         ((png[i, 8 * strip_index + 1] == 255) ? 1 << 1 : 0) |
+                         ((png[i, 8 * strip_index] == 255) ? 1 : 0)
          end
 
          strip.each { |c| print c.chr }
+	 print "\n"
       end
    end
 end

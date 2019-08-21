@@ -56,14 +56,14 @@ class Png2Imagewriter
                       ((png[i, 8 * strip_index + 2] == 255) ? 1 << 2 : 0) |
                       ((png[i, 8 * strip_index + 1] == 255) ? 1 << 1 : 0) |
                       ((png[i, 8 * strip_index] == 255) ? 1 : 0)
-    end
+      end
 
-    strip.each { |c| print c.chr }
-    print "\n"
+      strip.each { |c| print c.chr }
+      print "\n"
 
-    # It takes this long for the carriage to return to home
-    # TODO: should really just be counting characters and writing a bufferful at a time
-    sleep(1.5)
+      # It takes this long for the carriage to return to home
+      # TODO: should really just be counting characters and writing a bufferful at a time
+      sleep(1.5)
     end
   end
 end
